@@ -13,6 +13,7 @@ public class MovieBundle implements Parcelable {
     String LOG_TAG = "MovieBundle";
     Log log;
 
+    //Movie Fields
     private int id;
     private String title;
     private String description;

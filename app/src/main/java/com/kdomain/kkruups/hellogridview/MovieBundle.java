@@ -4,11 +4,14 @@ import android.animation.AnimatorSet;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by 22711973 on 8/31/2015.
  */
 public class MovieBundle implements Parcelable {
+    String LOG_TAG = "MovieBundle"
+    Log log;
 
     private int id;
     private String title;
@@ -19,6 +22,7 @@ public class MovieBundle implements Parcelable {
     private String image_url;
     private String base_path;
     private String image_size;
+    private final String  URL_BUILDER_SCHEME="http";
 
     public MovieBundle(int id,
                        String title,
@@ -55,7 +59,7 @@ public class MovieBundle implements Parcelable {
     }
 
     public String getDescription() {
-        return this.title;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -79,19 +83,20 @@ public class MovieBundle implements Parcelable {
     }
 
     public String getImageUrl() {
+        log.d(LOG_TAG, "Getter-Image_URL: " + this.image_url);
         return this.image_url;
     }
 
-    public void setImageUrl(String base_path, String image_size, String poster_path) {
+    public void setImageUrl(String base_path, String image_size, String poster_path ) {
+
         Uri.Builder urlBuilder = new Uri.Builder();
-
-      this.image_url =  urlBuilder.authority(base_path).appendPath(image_size).appendPath(poster_path).toString();
-
+        this.image_url =  urlBuilder.scheme(URL_BUILDER_SCHEME).authority(base_path).appendPath(image_size).appendPath(poster_path).toString();
+        log.d(LOG_TAG, "Setter-Image_URL: " + this.image_url);
 
      }
 
         public MovieBundle(Parcel in){
-            String [] movieData = new String[7];
+             String [] movieData = new String[6];
 
 
             this.id = in.readInt();
@@ -124,10 +129,12 @@ public class MovieBundle implements Parcelable {
 
         public static final Parcelable.Creator Creator  = new Parcelable.Creator(){
             public MovieBundle createFromParcel(Parcel in){
+
                 return new MovieBundle(in);
             }
 
             public MovieBundle [] newArray(int size){
+
                 return new MovieBundle[size];
             }
         };

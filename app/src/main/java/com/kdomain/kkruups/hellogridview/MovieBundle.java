@@ -10,7 +10,7 @@ import android.util.Log;
  * Created by 22711973 on 8/31/2015.
  */
 public class MovieBundle implements Parcelable {
-    String LOG_TAG = "MovieBundle"
+    String LOG_TAG = "MovieBundle";
     Log log;
 
     private int id;

@@ -31,6 +31,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     // create a new ImageView for each item referenced by the Adapter
+    // convertView is a recycled view which not visible which can be reused if has not been destroyed
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {

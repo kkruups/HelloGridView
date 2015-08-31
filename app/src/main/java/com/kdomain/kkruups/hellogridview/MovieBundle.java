@@ -1,20 +1,13 @@
 package com.kdomain.kkruups.hellogridview;
 
-import android.os.AsyncTask;
-
-<<<<<<< HEAD
 
 
-=======
-import android.animation.AnimatorSet;
->>>>>>> origin/master
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,18 +19,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-=======
->>>>>>> origin/master
 /**
  * Created by 22711973 on 8/31/2015.
  */
 public class MovieBundle implements Parcelable {
     String LOG_TAG = "MovieBundle";
-<<<<<<< HEAD
-    Log log = new Log();
-=======
     Log log;
->>>>>>> origin/master
 
     //Movie Fields
     private int id;
@@ -50,14 +37,11 @@ public class MovieBundle implements Parcelable {
     private String base_path;
     private String image_size;
     private final String  URL_BUILDER_SCHEME="http";
-<<<<<<< HEAD
     private String jsonMovieDataString;
 
     public MovieBundle(){
 
-    }
-=======
->>>>>>> origin/master
+    };
 
     public MovieBundle(int id,
                        String title,
@@ -122,17 +106,12 @@ public class MovieBundle implements Parcelable {
         return this.image_url;
     }
 
-<<<<<<< HEAD
     public void setImageUrl(final String base_path, final String image_size, String poster_path ) {
-=======
-    public void setImageUrl(String base_path, String image_size, String poster_path ) {
->>>>>>> origin/master
 
         Uri.Builder urlBuilder = new Uri.Builder();
         this.image_url =  urlBuilder.scheme(URL_BUILDER_SCHEME).authority(base_path).appendPath(image_size).appendPath(poster_path).toString();
         log.d(LOG_TAG, "Setter-Image_URL: " + this.image_url);
 
-<<<<<<< HEAD
     }
 
     public MovieBundle(Parcel in){
@@ -295,134 +274,3 @@ public class MovieBundle implements Parcelable {
 }
 
 
-=======
-     }
-
-        public MovieBundle(Parcel in){
-             String [] movieData = new String[6];
-
-
-            this.id = in.readInt();
-            in.readStringArray(movieData);
-            this.title = movieData[0];
-            this.description=movieData[1];
-            this.release_date=movieData[2];
-            this.rating=movieData[3];
-            this.data_query_url=movieData[4];
-            this.image_url=movieData[5];
-        }
-
-        @Override
-        public int describeContents(){
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags){
-            out.writeInt(this.id);
-            out.writeStringArray(new String[]{
-                                               this.title,
-                                               this.description,
-                                               this.release_date,
-                                               this.rating,
-                                               this.data_query_url,
-                                               this.image_url
-            });
-        }
-
-        public static final Parcelable.Creator Creator  = new Parcelable.Creator(){
-            public MovieBundle createFromParcel(Parcel in){
-
-                return new MovieBundle(in);
-            }
-
-            public MovieBundle [] newArray(int size){
-
-                return new MovieBundle[size];
-            }
-        };
-
-public class FetchMovieDataTask extends AsyncTask<Void,Void,Void> {
-    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
-//START *********************Weather Site JSON Data Scraping**********************
-
-        private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
-
-        @Override
-        protected Void doInBackground(Void... params) {
-// These two need to be declared outside the try/catch
-// so that they can be closed in the finally block.
-
-
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
-
-            // Will contain the raw JSON response as a string.
-            String movieDataJsonStr = null;
-            final String MOVIE_URL="http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7e9340e27812b0e3dfdecd4c19f14a65";
-            try
-
-            {
-                // Construct the URL for the OpenWeatherMap query
-                // Possible parameters are avaiable at OWM's forecast API page, at
-                // http://openweathermap.org/API#forecast
-                URL url = new URL(MOVIE_URL);
-
-                // Create the request to OpenWeatherMap, and open the connection
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // Read the input stream into a String
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
-                if (inputStream == null) {
-                    // Nothing to do.
-                    return null;
-                }
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                    // But it does make debugging a *lot* easier if you print out the completed
-                    // buffer for debugging.
-                    buffer.append(line + "\n");
-                }
-
-                if (buffer.length() == 0) {
-                    // Stream was empty.  No point in parsing.
-                    return null;
-                }
-                movieDataJsonStr = buffer.toString();
-
-                
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
-                // to parse it.
-                return null;
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
-                    }
-                }
-            }
-
-            return null;
-
-        }
-    }
-//END
-}
-
-
-
-}
->>>>>>> origin/master
